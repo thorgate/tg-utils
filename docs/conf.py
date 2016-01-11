@@ -31,6 +31,10 @@ project_root = os.path.dirname(cwd)
 # version is used.
 sys.path.insert(0, project_root)
 
+# Make Django happier
+os.environ["DJANGO_SETTINGS_MODULE"] = "tests.django_settings"
+
+
 import tg_utils
 
 # -- General configuration ---------------------------------------------

@@ -6,9 +6,9 @@ Installation
 
 At the command line::
 
-    $ easy_install tg_utils
+    $ easy_install tg-utils
 
 Or, if you have virtualenvwrapper installed::
 
-    $ mkvirtualenv tg_utils
-    $ pip install tg_utils
+    $ mkvirtualenv tg-utils
+    $ pip install tg-utils

@@ -2,14 +2,14 @@
 tg-utils
 ===============================
 
-.. image:: https://img.shields.io/pypi/v/tg_utils.svg
-        :target: https://pypi.python.org/pypi/tg_utils
+.. image:: https://img.shields.io/pypi/v/tg-utils.svg
+        :target: https://pypi.python.org/pypi/tg-utils
 
-.. image:: https://img.shields.io/travis/thorgate/tg_utils.svg
-        :target: https://travis-ci.org/thorgate/tg_utils
+.. image:: https://img.shields.io/travis/thorgate/tg-utils.svg
+        :target: https://travis-ci.org/thorgate/tg-utils
 
-.. image:: https://readthedocs.org/projects/tg_utils/badge/?version=latest
-        :target: https://readthedocs.org/projects/tg_utils/?badge=latest
+.. image:: https://readthedocs.org/projects/tg-utils/badge/?version=latest
+        :target: https://readthedocs.org/projects/tg-utils/?badge=latest
         :alt: Documentation Status
 
 
@@ -18,12 +18,20 @@ Collection of various utils for Django-based projects.
 This is code that we're using in our projects at Thorgate and we're hoping you'll find some of it useful as well.
 
 * Free software: ISC license
-* Documentation: https://tg_utils.readthedocs.org.
+* Documentation: https://tg-utils.readthedocs.org.
+
 
 Features
 --------
 
-* TODO
+* Model utils, e.g. timestamped and closable models, QuerySets that send out a signal when objects are modified.
+* Templated email sending.
+* Profiling utilities.
+* Unique filename generation for uploads.
+* Using hashids for models (instead of exposing primary keys).
+* System checks for email and Sentry configuration.
+* yuglify compressors for django-compressor.
+
 
 Credits
 ---------

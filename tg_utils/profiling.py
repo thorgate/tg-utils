@@ -45,6 +45,7 @@ class ProfiledViewMixin:
 
     To use it, make your view inherit from ProfiledViewMixin, then set profiling_mode attribute of your class to desired
     value. The choices are:
+
     - PROFILING_LOGGING - Simply logs elapsed time with standard logging lib.
     - PROFILING_YAPPI - Uses yappi (https://code.google.com/p/yappi/) to dump detailed profiling data into file. The
       file can be read with KCachegrind. yappi must be installed separately - `pip install yappi`. KCachegrind or
