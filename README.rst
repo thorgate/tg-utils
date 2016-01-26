@@ -30,7 +30,7 @@ Features
 * Unique filename generation for uploads.
 * Using hashids for models (instead of exposing primary keys).
 * System checks for email and Sentry configuration.
-* yuglify compressors for django-compressor.
+* JS/CSS compressors for `Django Compressor <https://django-compressor.readthedocs.org/en/latest/>`_.
 
 
 Credits
