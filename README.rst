@@ -8,6 +8,9 @@ tg-utils
 .. image:: https://img.shields.io/travis/thorgate/tg-utils.svg
         :target: https://travis-ci.org/thorgate/tg-utils
 
+.. image:: https://travis-ci.org/thorgate/tg-utils.svg?branch=master
+        :target: https://travis-ci.org/thorgate/tg-utils
+
 .. image:: https://readthedocs.org/projects/tg-utils/badge/?version=latest
         :target: https://readthedocs.org/projects/tg-utils/?badge=latest
         :alt: Documentation Status

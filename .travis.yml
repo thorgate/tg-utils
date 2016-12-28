@@ -1,0 +1,38 @@
+language: python
+
+python:
+    - "3.5"
+
+env:
+  - TOX_ENV=py35-django18
+  - TOX_ENV=py35-django19
+  - TOX_ENV=py34-django18
+  - TOX_ENV=py34-django19
+  - TOX_ENV=py27-django18
+  - TOX_ENV=py27-django19
+  - TOX_ENV=lint
+  - TOX_ENV=coverage
+  - TOX_ENV=docs
+
+install:
+  - pip install -U tox
+
+script:
+  - tox
+
+deploy:
+  provider: pypi
+  user: thorgate
+  password:
+    secure: >
+      Zzg1ODVdaUm+8QHhi9+LfsdRxVy+LQze+h0yjtitg3T6r2V50vrNJOyP4IbOVosW3F7cmmVvyQYzeAqCMQJcDrID4QIA3QiQ/ykT6PqhEO1Cn
+      nmAIORwo1dh+xK9eINkV/5a/jDLZ5Fnlqea6PbeQ54BiBWkOdzxUWhjECZqpwoTqZR5YPgnSHXuRY3elZJ6YJ4XJ0ww1JCff4i6mkV7h1IcVe
+      Yze4M4wWS8BsRbM7utfyA1bWxLU9VLXIpuRgeNCXaDuiKH8hKsWzPyyo2MZjlOPRHL4xPfNUY53WL6OD89d2yv+Uk9ptt+pfCv1o3bDGa+BtD
+      QDdSzvB5kCgl8SOcfZ9O7gcJK9T67ybNBCFZgQQvmGX3HYT2Db/r/VpaM5Zxk6YJAu7Hw7f6kziiPN1fI329kga4EFvdw3j5WBO8cXvTiKRp4
+      272cD5vf+A4vZY5N9ciMAlgtVjIAVQ0dhVM9MZ3wKXPolrw9s8BrV7fuE+ydLC2mYtZUomoadtG+TguNe6EClkymg7MiF0eO/jeaIGmUoYqvi
+      bgSaaRnp87O3nJEoBnr0J5JmCOD5Myo+9amy+1USa3RR1q+I9L6pKOFVlYomgObxkMzX2FX84SQsoJweBdn9GuavSexFv7PixDo77/0AhsoBp
+      C94olGnLJbtTcMzrp2pXT9AaLfYwk=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: thorgate/tg-utils
