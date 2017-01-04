@@ -52,7 +52,7 @@ coverage.xml
 # Django stuff:
 *.log
 
-# Pycharm
+# Pycharm project dir
 .idea
 
 # Sphinx documentation
