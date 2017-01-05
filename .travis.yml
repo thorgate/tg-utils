@@ -36,3 +36,6 @@ deploy:
     tags: true
     distributions: sdist bdist_wheel
     repo: thorgate/tg-utils
+
+notifications:
+  email: false
