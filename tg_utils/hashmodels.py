@@ -13,7 +13,15 @@ class ModelHashIdMixin(object):
 
     @classmethod
     def get_hashids_object(cls):
-        salt = cls.__name__ + settings.SECRET_KEY[:20]
+        if hasattr(cls, '_meta') and hasattr(cls._meta, 'concrete_model'):
+            # If the developer uses RawQueryset, then the class name isn't equal to the original model name.
+            # Thus, we use the 'concrete_model' which refers to the original model class.
+            salt = cls._meta.concrete_model.__name__
+        else:
+            salt = cls.__name__
+
+        salt += settings.SECRET_KEY[:20]
+
         return Hashids(salt=salt, min_length=12)
 
     @classmethod
