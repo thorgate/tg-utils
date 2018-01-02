@@ -12,10 +12,10 @@ class ClosableModel(models.Model):
     Also provides default manager that automatically filters queryset to only include active (non-closed) items plus a
     .close() function to mark objects as closed.
     """
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='+', null=True, blank=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name='+', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
-    closed_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='+', null=True, blank=True)
+    closed_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name='+', null=True, blank=True)
     closed_at = models.DateTimeField(null=True, blank=True)
 
     all_objects = models.Manager()

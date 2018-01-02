@@ -17,7 +17,7 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'django>=1.8,<1.10',
+    'django>=1.8,<2.1',
 ]
 
 setup(
