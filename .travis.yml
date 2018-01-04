@@ -1,25 +1,14 @@
 language: python
 
 python:
+    - "3.4"
+    - "3.5"
     - "3.6"
 
 env:
-  - TOX_ENV=py34-django18
-  - TOX_ENV=py34-django111
-  - TOX_ENV=py34-django20
-  - TOX_ENV=py35-django18
-  - TOX_ENV=py35-django111
-  - TOX_ENV=py35-django20
-  - TOX_ENV=py36-django18
-  - TOX_ENV=py36-django111
-  - TOX_ENV=py36-django20
-  - TOX_ENV=lint
-  - TOX_ENV=coverage
-  - TOX_ENV=docs
-
-before_install:
-# For reasons: https://github.com/travis-ci/travis-ci/issues/4990
-  - if [[ $TOXENV =~ "py35" && -f ~/virtualenv/python3.5/bin/activate ]]; then source ~/virtualenv/python3.5/bin/activate; fi
+  - DJANGO=1.8
+  - DJANGO=1.11
+  - DJANGO=2.0
 
 install:
   - pip install -U tox
@@ -27,26 +16,24 @@ install:
 script:
   - tox
 
-jobs:
-  include:
-    - stage: deploy
-      env: TOX_ENV=py36-django20
-      deploy:
-        provider: pypi
-        user: thorgate
-        password:
-          secure: >
-            gsOZAUv7GMDdQ5PVyi8+qpZSLZJ0bGs+iX8i7acIHFZU3jHpMm3NevMIuka8Xkd0cpnEW9xmAqGf6UyEW0pLa/dp5NWlggUIsRdFS0JH9aQ7c
-            A0cRbAPQo5ZjAaVqcHDjmKHAVjfRvHOvAcceRe/AODm/EBXx2pzxHb2YSOolFuSmK0OWjaAoJ0kK1DoWI2gltOoPC3NebdTJCmcdn1thmh1su
-            LanvkOn9v6363KrGz7t3y4h7qvmAYH0iM3xyarHPwodd1vChnvHdXEJoNFHzPuMcvI44nOlrf6phhFyyGyzsJQrwITwAROzLLRuKq1VbFS+nc
-            yj7vPa8CRh9J26ccA/W4tx0AqkwsFVxHdDIrbQ7apZ8TXIWDovv9nxRoN8e8fr+5u4umUbKLBgBKINfW2BA9LyqMCBj7YaNUwNAYxxMu8xBO4
-            m6DUuCDZqXyMQVgZraJwrn0p1qmyacAcOJMbcNNlmwvo6+4kMgKVvsoFBAB9MOqH1y4UFgXsvvbx2sN46XDqmvagjtlyZMcHh6L5riRhhTl8r
-            YZLCmM62WKM05hjx03KDVHlNVSs4VWVCXVXkrIlDm8rHM0wy6pWUov9LREoazaDL11vAFbKBM0D3qOhDzZlD1xECa3lRWW1K3g1Pa5/DatozO
-            NyOCYve/jqlkfFKV3VEvgEBBBqF5g=
-        on:
-          tags: true
-          distributions: sdist bdist_wheel
-          repo: thorgate/tg-utils
+deploy:
+  provider: pypi
+  user: thorgate
+  password:
+    secure: >
+      gsOZAUv7GMDdQ5PVyi8+qpZSLZJ0bGs+iX8i7acIHFZU3jHpMm3NevMIuka8Xkd0cpnEW9xmAqGf6UyEW0pLa/dp5NWlggUIsRdFS0JH9aQ7c
+      A0cRbAPQo5ZjAaVqcHDjmKHAVjfRvHOvAcceRe/AODm/EBXx2pzxHb2YSOolFuSmK0OWjaAoJ0kK1DoWI2gltOoPC3NebdTJCmcdn1thmh1su
+      LanvkOn9v6363KrGz7t3y4h7qvmAYH0iM3xyarHPwodd1vChnvHdXEJoNFHzPuMcvI44nOlrf6phhFyyGyzsJQrwITwAROzLLRuKq1VbFS+nc
+      yj7vPa8CRh9J26ccA/W4tx0AqkwsFVxHdDIrbQ7apZ8TXIWDovv9nxRoN8e8fr+5u4umUbKLBgBKINfW2BA9LyqMCBj7YaNUwNAYxxMu8xBO4
+      m6DUuCDZqXyMQVgZraJwrn0p1qmyacAcOJMbcNNlmwvo6+4kMgKVvsoFBAB9MOqH1y4UFgXsvvbx2sN46XDqmvagjtlyZMcHh6L5riRhhTl8r
+      YZLCmM62WKM05hjx03KDVHlNVSs4VWVCXVXkrIlDm8rHM0wy6pWUov9LREoazaDL11vAFbKBM0D3qOhDzZlD1xECa3lRWW1K3g1Pa5/DatozO
+      NyOCYve/jqlkfFKV3VEvgEBBBqF5g=
+  distributions: sdist bdist_wheel
+  on:
+    repo: thorgate/tg-utils
+    tags: true
+    python: "3.6"
+    condition: "2.0"
 
 notifications:
   email: false
