@@ -11,7 +11,7 @@ env:
   - DJANGO=2.0
 
 install:
-  - pip install -U tox
+  - pip install tox tox-travis
 
 script:
   - tox
