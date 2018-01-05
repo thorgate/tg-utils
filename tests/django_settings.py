@@ -3,7 +3,7 @@ import os
 
 DEBUG = True
 
-SECRET_KEY='hunter2'
+SECRET_KEY = 'hunter2'
 
 SITE_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

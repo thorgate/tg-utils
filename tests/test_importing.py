@@ -1,3 +1,6 @@
+# flake8: noqa
+
+
 def test_imports():
     """ Ensures all submodules are importable
 
