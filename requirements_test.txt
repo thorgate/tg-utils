@@ -5,3 +5,4 @@ pytest-cov==2.4.0
 pytest-django==2.9.1
 django_compressor==2.0
 hashids==1.1.0
+flake8==2.5.1
