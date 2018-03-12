@@ -2,7 +2,7 @@
 History
 =======
 
-0.3.0 (2018-01-02)
+0.3.0 (2018-03-12)
 ------------------
 
 * Supported Django versions are now 1.8, 1.11, and 2.0.
