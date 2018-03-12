@@ -22,7 +22,7 @@ def profile_yappi(label):
         func_stats = yappi.get_func_stats()
         file_prefix = '/tmp/profile-yappi-%s-%s' % (label, timestamp.isoformat('T'))
         with open(file_prefix + '-summary.txt', 'w') as f:
-            func_stats.print_all(out=f, columns={0:("name",140), 1:("ncall", 8), 2:("tsub", 8), 3:("ttot", 8), 4:("tavg",8)})
+            func_stats.print_all(out=f, columns={0: ("name", 140), 1: ("ncall", 8), 2: ("tsub", 8), 3: ("ttot", 8), 4: ("tavg", 8)})
         func_stats.save(file_prefix + '.kgrind', 'CALLGRIND')
         yappi.stop()
         yappi.clear_stats()

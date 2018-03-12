@@ -51,14 +51,13 @@ lint:
 test:
 	py.test
 
+test-full: test lint coverage
+
 test-all:
 	tox
 
 coverage:
-	coverage run --source tg_utils setup.py test
-	coverage report -m
-	coverage html
-	$(BROWSER) htmlcov/index.html
+	py.test --cov-config .coveragerc --cov=tg_utils --cov-report html --cov-report term-missing
 
 docs:
 	rm -f docs/tg_utils.rst
