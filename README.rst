@@ -30,6 +30,7 @@ Features
 * Unique filename generation for uploads.
 * Using hashids for models (instead of exposing primary keys).
 * System checks for email and Sentry configuration.
+* Mixin for easier implementation of ordering in Django's generic ListView.
 * JS/CSS compressors for `Django Compressor <https://django-compressor.readthedocs.org/en/latest/>`_.
 
 
