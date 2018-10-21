@@ -16,9 +16,6 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [
-    'django>=1.8,<2.1',
-]
 
 setup(
     name='tg-utils',
@@ -34,7 +31,9 @@ setup(
     package_dir={'tg_utils':
                  'tg_utils'},
     include_package_data=True,
-    install_requires=requirements,
+    install_requires=[
+        'django>=1.8,!=2.1.0,!=2.1.1,<2.2',
+    ],
     license="ISCL",
     zip_safe=False,
     keywords='tg-utils tg_utils',
@@ -47,5 +46,6 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
 )
