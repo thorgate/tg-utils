@@ -1,5 +1,19 @@
+import django
+
 from django.contrib.admin.options import InlineModelAdmin
 from django.forms.models import BaseInlineFormSet
+
+
+# Select correct has_add_permission signature based on Django version
+if django.VERSION >= (2, 1):
+    class ReadOnlyAddAdminMixin:
+        def has_add_permission(self, request, obj):
+            return False
+
+else:
+    class ReadOnlyAddAdminMixin:
+        def has_add_permission(self, request):
+            return False
 
 
 class AutoMediaFormSet(BaseInlineFormSet):
@@ -8,7 +22,7 @@ class AutoMediaFormSet(BaseInlineFormSet):
         return self.empty_form.media
 
 
-class StaticModelAdmin(InlineModelAdmin):
+class StaticModelAdmin(ReadOnlyAddAdminMixin, InlineModelAdmin):
     """ Displays inline models as read-only.
     """
 
@@ -17,9 +31,6 @@ class StaticModelAdmin(InlineModelAdmin):
     formset = AutoMediaFormSet
 
     exclude = ('created_by', 'created_at', 'closed_by', 'closed_at', 'updated_at', )
-
-    def has_add_permission(self, request):
-        return False
 
     def has_delete_permission(self, request, obj=None):
         return False
