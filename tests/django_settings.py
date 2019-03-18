@@ -15,3 +15,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(SITE_ROOT, 'static'),
 )
+
+REDIS_LOCK_URL = 'redis://redis:6379/1'

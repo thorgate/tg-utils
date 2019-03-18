@@ -34,6 +34,11 @@ setup(
     install_requires=[
         'django>=1.8,!=2.1.0,!=2.1.1,<2.2',
     ],
+    extras_require={
+        'lock': [
+            'python-redis-lock>=3.2.0',
+        ]
+    },
     license="ISCL",
     zip_safe=False,
     keywords='tg-utils tg_utils',
