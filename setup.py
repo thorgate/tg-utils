@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 
+import os.path
+
+
 try:
     from setuptools import setup
 except ImportError:
@@ -27,17 +30,31 @@ setup(
     url='https://github.com/thorgate/tg-utils',
     packages=[
         'tg_utils',
+        'tg_utils.health_check',
+        'tg_utils.health_check.checks',
+        'tg_utils.health_check.checks.phantomjs',
+        'tg_utils.health_check.checks.elvis',
     ],
-    package_dir={'tg_utils':
-                 'tg_utils'},
+    package_dir={
+        'tg_utils': 'tg_utils',
+        'tg_utils.health_check': os.path.join('tg_utils', 'health_check'),
+        'tg_utils.health_check.checks': os.path.join('tg_utils', 'health_check', 'checks'),
+        'tg_utils.health_check.checks.phantomjs': os.path.join('tg_utils', 'health_check', 'checks', 'phantomjs'),
+        'tg_utils.health_check.checks.elvis': os.path.join('tg_utils', 'health_check', 'checks', 'elvis'),
+    },
     include_package_data=True,
     install_requires=[
         'django>=1.8,!=2.1.0,!=2.1.1,<2.2',
     ],
     extras_require={
         'lock': [
-            'python-redis-lock>=3.2.0',
-        ]
+            'python-redis-lock>=3.2.0,<4.0.0',
+        ],
+        'health_check': [
+            'django-health-check>=3.9.0,<4.0.0',
+            'psutil>=5.6.0,<6.0.0',
+            'requests>=2.18.4,<3.0.0',
+        ],
     },
     license="ISCL",
     zip_safe=False,
