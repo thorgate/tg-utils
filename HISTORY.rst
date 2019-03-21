@@ -2,6 +2,11 @@
 History
 =======
 
+0.6.0 (2019-03-21)
+------------------
+
+* Added health-check helpers. Thanks @iharthi
+
 0.5.0 (2019-02-07)
 ------------------
 
