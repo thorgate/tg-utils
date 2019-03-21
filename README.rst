@@ -32,6 +32,7 @@ Features
 * System checks for email and Sentry configuration.
 * Mixin for easier implementation of ordering in Django's generic ListView.
 * JS/CSS compressors for `Django Compressor <https://django-compressor.readthedocs.org/en/latest/>`_.
+* Health-check endpoints (with and without token authentication)
 
 
 Credits
