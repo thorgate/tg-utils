@@ -46,6 +46,7 @@ Add health_check app and relevant health-checkers to installed apps::
         'health_check.contrib.celery',
         'tg_utils.health_check.checks.elvis',
         'tg_utils.health_check.checks.phantomjs',
+        'tg_utils.health_check.checks.celery_beat',
         ...
     [
 
@@ -83,7 +84,14 @@ Add settings, if required, to settings.py::
         'MEMORY_MIN': 100,      # in MB
 
         # For 'tg_utils.health_check.checks.phantomjs'
-        'PHANTOMJS_REQUIRES_HEADER_HTML': True, # Defaults to False, set to true if phantomjs expects header_html data
+        'PHANTOMJS_REQUIRES_HEADER_HTML': True,  # Defaults to False, set to true if phantomjs expects header_html data
+
+        # For 'tg_utils.health_check.checks.celery_beat'
+        'CELERY_APP': 'my_cool_project.celery.app',  # Celery app instance
+        'CELERY_BEAT_CHECK_INTERVAL': 60,            # How frequently to schedule the health check beat, in seconds
+        'CELERY_BEAT_DELAY_THRESHOLD': 10,           # Goes to error state if the task does not complete within
+                                                     # this number of seconds after it was supposed to be scheduled
+
     }
 
-To access protected detail view, secret token has to be passed as
+To access protected detail view, secret token has to be passed as either a GET parameter or HTTP header.
