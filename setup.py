@@ -34,6 +34,7 @@ setup(
         'tg_utils.health_check.checks',
         'tg_utils.health_check.checks.phantomjs',
         'tg_utils.health_check.checks.elvis',
+        'tg_utils.health_check.checks.celery_beat',
     ],
     package_dir={
         'tg_utils': 'tg_utils',
@@ -41,6 +42,7 @@ setup(
         'tg_utils.health_check.checks': os.path.join('tg_utils', 'health_check', 'checks'),
         'tg_utils.health_check.checks.phantomjs': os.path.join('tg_utils', 'health_check', 'checks', 'phantomjs'),
         'tg_utils.health_check.checks.elvis': os.path.join('tg_utils', 'health_check', 'checks', 'elvis'),
+        'tg_utils.health_check.checks.celery_beat': os.path.join('tg_utils', 'health_check', 'checks', 'celery_beat'),
     },
     include_package_data=True,
     install_requires=[
