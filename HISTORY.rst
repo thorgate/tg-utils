@@ -2,6 +2,10 @@
 History
 =======
 
+0.6.1 (2019-03-17)
+
+* Added health-check for celery and celery beat. Thanks @iharthi
+
 0.6.0 (2019-03-21)
 ------------------
 
