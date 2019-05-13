@@ -46,10 +46,11 @@ setup(
     },
     include_package_data=True,
     install_requires=[
-        'django>=1.8,!=2.1.0,!=2.1.1,<2.2',
+        'django>=1.8,!=2.1.0,!=2.1.1,<3.0',
     ],
     extras_require={
         'lock': [
+            'redis>=2.10.0',
             'python-redis-lock>=3.2.0,<4.0.0',
         ],
         'health_check': [

@@ -14,15 +14,19 @@ from redis import StrictRedis
 
 
 REDIS_LOCK_URL = getattr(settings, 'REDIS_LOCK_URL', False)
-if not REDIS_LOCK_URL:
-    raise ImproperlyConfigured("To use locking, set REDIS_LOCK_URL in your settings.py")
-_redis_conn = StrictRedis.from_url(REDIS_LOCK_URL)
 
-DEFAULT_PREFIX = getattr(settings, 'REDIS_LOCK_DEFAULT_PREFIX', 'acquires_lock_')
+DEFAULT_PREFIX = getattr(settings, 'REDIS_LOCK_DEFAULT_PREFIX', 'acquires_lock')
 
 
 logger = logging.getLogger('tg-utils.lock')
 logger.setLevel(logging.DEBUG if settings.DEBUG else logging.INFO)
+
+
+def get_redis_connection():
+    if not REDIS_LOCK_URL:
+        raise ImproperlyConfigured("To use locking, set REDIS_LOCK_URL in your settings.py")
+
+    return StrictRedis.from_url(REDIS_LOCK_URL)
 
 
 def get_lock(resource, expires):
@@ -30,17 +34,17 @@ def get_lock(resource, expires):
     if isinstance(expires, timedelta):
         expires = expires.total_seconds()
 
-    return redis_lock.Lock(_redis_conn, resource, expire=expires)
+    return redis_lock.Lock(get_redis_connection(), resource, expire=expires)
 
 
-def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, prefix=DEFAULT_PREFIX):
+def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, prefix=DEFAULT_PREFIX, create_id=None):
     """
     Decorator to ensure function only runs when it is unique holder of the resource.
 
     Any invocations of the functions before the first is done
     will raise RuntimeError.
 
-    Locks are stored in redis with prefix: `lock:acquires_lock`
+    Locks are stored in redis with default prefix: `lock:acquires_lock`
 
     Arguments:
         expires(timedelta|int): Expiry time of lock, way more than expected time to run.
@@ -49,6 +53,7 @@ def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, p
         should_wait(bool): Should this task wait for lock to be released.
         resource(str): Resource identifier, by default taken from function name.
         prefix(str): Change prefix added to redis key (the 'lock:' part will always be added)
+        create_id(function): Change suffix added to redis key to lock only specific function call based on arguments.
 
     Example:
 
@@ -60,11 +65,6 @@ def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, p
         def foo():
             ...
     """
-
-    # Seconds from now on
-    if isinstance(expires, timedelta):
-        expires = expires.total_seconds()
-
     # This is just a tiny wrapper around redis_lock
     # 1) acquire lock or fail
     # 2) run function
@@ -76,12 +76,20 @@ def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, p
         if resource is None:
             resource = f.__name__
 
-        resource = '%s%s' % (prefix, resource)
+        resource = '%s:%s' % (prefix, resource)
 
         @wraps(f)
         def wrapper(*args, **kwargs):
+            lock_suffix = None
+
+            if create_id:
+                lock_suffix = create_id(*args, **kwargs)
+
             # The context manager is annoying and always blocking...
-            lock = redis_lock.Lock(_redis_conn, resource, expire=expires)
+            lock = get_lock(
+                resource='%s:%s' % (resource, lock_suffix) if lock_suffix else resource,
+                expires=expires,
+            )
             lock_acquired = False
 
             # Get default lock blocking mode
@@ -104,9 +112,11 @@ def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, p
             if not lock.acquire(blocking=is_blocking):
                 if should_fail:
                     raise RuntimeError("Failed to acquire lock: %s" % resource)
+
                 logger.warning('Failed to acquire lock: %s', resource)
                 if not should_execute_if_lock_fails:
                     return False
+
             else:
                 lock_acquired = True
 

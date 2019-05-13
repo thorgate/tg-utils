@@ -10,3 +10,4 @@ pytest==2.8.5
 pytest-django==2.9.1
 django_compressor==2.0
 hashids==1.1.0
+python-redis-lock>=3.2.0,<4.0.0
