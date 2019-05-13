@@ -46,7 +46,7 @@ setup(
     },
     include_package_data=True,
     install_requires=[
-        'django>=1.8,!=2.1.0,!=2.1.1,<3.0',
+        'django>=1.8,!=2.1.0,!=2.1.1,!=2.1.2,!=2.1.3,!=2.1.4,!=2.1.5,<3.0',
     ],
     extras_require={
         'lock': [
