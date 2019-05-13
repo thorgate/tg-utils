@@ -12,11 +12,14 @@ env:
   - DJANGO=1.11
   - DJANGO=2.0
   - DJANGO=2.1
+  - DJANGO=2.2
 
 matrix:
   exclude:
     - python: "3.4"
       env: DJANGO=2.1
+    - python: "3.4"
+      env: DJANGO=2.2
     - python: "3.7"
       env: DJANGO=1.8
     - python: "3.7"
@@ -45,7 +48,7 @@ deploy:
     repo: thorgate/tg-utils
     tags: true
     python: "3.6"
-    condition: "$DJANGO = 2.0"
+    condition: "$DJANGO = 2.2"
 
 notifications:
   email: false
