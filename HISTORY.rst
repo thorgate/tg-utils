@@ -2,7 +2,21 @@
 History
 =======
 
+0.7.1 (2019-06-03)
+------------------
+
+* Add extra require for `hashids`.
+* Fix usage of deprecated from `hashids`.
+
+
+0.7.0 (2019-05-13)
+------------------
+
+* Updated dependencies to support Django LTS correctly.
+
+
 0.6.1 (2019-03-17)
+------------------
 
 * Added health-check for celery and celery beat. Thanks @iharthi
 

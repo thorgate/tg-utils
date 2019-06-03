@@ -18,8 +18,8 @@ class ModelHashIdMixin(object):
 
     @classmethod
     def pk_from_hashid(cls, hash):
-        return cls.get_hashids_object().decrypt(hash)[0]
+        return cls.get_hashids_object().decode(hash)[0]
 
     @property
     def hashid(self):
-        return self.get_hashids_object().encrypt(self.id)
+        return self.get_hashids_object().encode(self.id)

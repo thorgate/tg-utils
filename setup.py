@@ -49,6 +49,9 @@ setup(
         'django>=1.8,!=2.1.0,!=2.1.1,!=2.1.2,!=2.1.3,!=2.1.4,!=2.1.5,<3.0',
     ],
     extras_require={
+        'model-hash': [
+            'hashids>=1.2<2',
+        ],
         'lock': [
             'redis>=2.10.0',
             'python-redis-lock>=3.2.0,<4.0.0',
