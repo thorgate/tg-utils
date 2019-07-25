@@ -22,6 +22,9 @@ class HealthCheckConfig(AppConfig):
                 "beat health-check (example value: 'my_project.celery.app')"
             )
 
+        # Set initial timestamp not to fail the health-check before it runs for the first time
+        timestamp_task.apply_async()
+
         module_name, class_name = cls.rsplit(".", 1)
         app_module = importlib.import_module(module_name)
 
