@@ -2,6 +2,12 @@
 History
 =======
 
+0.7.2 (2019-07-25)
+------------------
+
+* Bugfix: Prevent celery beat health-check from false-failing initially. Thanks @iharthi
+
+
 0.7.1 (2019-06-03)
 ------------------
 
