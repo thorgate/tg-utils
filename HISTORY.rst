@@ -2,6 +2,12 @@
 History
 =======
 
+0.7.3 (2019-09-10)
+------------------
+
+* Make celery beat health-check error message more comprehensive
+
+
 0.7.2 (2019-07-25)
 ------------------
 
