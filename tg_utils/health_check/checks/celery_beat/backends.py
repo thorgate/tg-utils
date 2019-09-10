@@ -17,5 +17,7 @@ class CeleryBeatHealthCheck(BaseHealthCheckBackend, HealthCheckSettingsMixin):
         last_beat_time = cache.get(CACHE_KEY, None)
         if last_beat_time is None:
             self.add_error(ServiceUnavailable("Celery beat is not scheduling tasks"))
-        elif (datetime.now() - last_beat_time).seconds > TIMEOUT + DELAY_THRESHOLD:
-            self.add_error(ServiceUnavailable("Celery beat tasks are delayed"))
+        elif (datetime.now() - last_beat_time).seconds > DELAY_THRESHOLD:
+            self.add_error(ServiceUnavailable("Celery beat tasks are delayed, last ran at {last_beat_time}.".format(
+                last_beat_time=last_beat_time,
+            )))
