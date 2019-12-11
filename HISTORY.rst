@@ -2,6 +2,13 @@
 History
 =======
 
+0.7.4 (2019-12-11)
+------------------
+
+* Add `ReadOnlyAdminMixin` for Django admin views
+* Add a decorator for annotating admin methods (`annotate_admin_method`)
+
+
 0.7.3 (2019-09-10)
 ------------------
 

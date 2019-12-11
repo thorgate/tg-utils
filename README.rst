@@ -31,6 +31,8 @@ Features
 * Using hashids for models (instead of exposing primary keys).
 * System checks for email and Sentry configuration.
 * Mixin for easier implementation of ordering in Django's generic ListView.
+* Mixin for making admin view read-only.
+* Decorator for annotating admin methods.
 * JS/CSS compressors for `Django Compressor <https://django-compressor.readthedocs.org/en/latest/>`_.
 * Health-check endpoints (with and without token authentication)
 

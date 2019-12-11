@@ -19,3 +19,4 @@ def test_imports():
     from tg_utils import profiling
     from tg_utils import signals
     from tg_utils import uuid
+    from tg_utils import decorators
