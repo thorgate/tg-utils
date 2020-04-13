@@ -23,7 +23,8 @@ class HealthCheckConfig(AppConfig):
             )
 
         # Set initial timestamp not to fail the health-check before it runs for the first time
-        timestamp_task.apply_async()
+        # Don't use apply_async - otherwise, the whole initialisation will fail if celery fails
+        timestamp_task()
 
         module_name, class_name = cls.rsplit(".", 1)
         app_module = importlib.import_module(module_name)
