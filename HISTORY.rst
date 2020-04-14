@@ -2,6 +2,12 @@
 History
 =======
 
+0.7.6 (2020-04-14)
+------------------
+
+* Fix issue in celery beat health check when cache failing would bring down the whole project
+
+
 0.7.5 (2020-04-13)
 ------------------
 
