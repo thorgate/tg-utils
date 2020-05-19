@@ -2,6 +2,12 @@
 History
 =======
 
+0.7.7 (unreleased)
+------------------
+
+* Allow usage with Django 3.0 and above
+
+
 0.7.6 (2020-04-14)
 ------------------
 
