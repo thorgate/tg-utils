@@ -25,7 +25,7 @@ To use them, add to your Django settings::
     ]
 
 Note that you need to have clean-css and uglify-js npm packages installed and in $PATH.
-Django Compressor versions 1.4 to 2.0 (inclusive) are supported.
+Django Compressor versions 1.4 to 2.4 (inclusive) are supported.
 
 
 Health-check endpoint
