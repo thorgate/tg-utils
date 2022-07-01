@@ -58,8 +58,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'tg-utils'
-copyright = u'2018, Thorgate'
+project = 'tg-utils'
+copyright = '2018, Thorgate'
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -212,8 +212,8 @@ latex_elements = {
 # [howto/manual]).
 latex_documents = [
     ('index', 'tg_utils.tex',
-     u'tg-utils Documentation',
-     u'Thorgate', 'manual'),
+     'tg-utils Documentation',
+     'Thorgate', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at
@@ -243,8 +243,8 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'tg_utils',
-     u'tg-utils Documentation',
-     [u'Thorgate'], 1)
+     'tg-utils Documentation',
+     ['Thorgate'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -258,8 +258,8 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     ('index', 'tg_utils',
-     u'tg-utils Documentation',
-     u'Thorgate',
+     'tg-utils Documentation',
+     'Thorgate',
      'tg_utils',
      'One line description of project.',
      'Miscellaneous'),
