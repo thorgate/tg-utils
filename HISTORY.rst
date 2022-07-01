@@ -5,6 +5,7 @@ History
 1.0.0 (2022-07-??)
 ------------------
 
+* Fix deprecation warning for `ugettext_lazy()`
 * Fix deprecation warning for `default_app_config`
 * Fix deprecation warning for `Signal.providing_args`
 
