@@ -48,10 +48,7 @@ class HTTPBasedHealthCheck(BaseHealthCheckBackend, HealthCheckSettingsMixin):
             )
         except requests.RequestException as e:
             logger.exception(e)
-            self.add_error(ServiceUnavailable("{url} - {error}".format(
-                url=self.url,
-                error=e.__class__.__name__,
-            )))
+            self.add_error(ServiceUnavailable(f"{self.url} - {e.__class__.__name__}"))
         else:
             if response.status_code != self.expected_status_code:
                 self.add_error(ServiceReturnedUnexpectedResult("Expected {expected}, got {actual}".format(

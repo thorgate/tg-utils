@@ -14,6 +14,7 @@ History
 * Remove obsolete encoding magic comment
 * Remove obsolete unicode string prefix
 * Remove obsolete inheritance from `object`
+* Make use of f-strings in place of `str.format()` and `%`-formatting
 
 0.7.7 (2020-05-20)
 ------------------

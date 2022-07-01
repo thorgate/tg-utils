@@ -45,9 +45,9 @@ class OrderingOptionsMixin:
                     resulting_ordering = ordering
                 else:
                     reverse = ordering == current_ordering[0]
-                    ordering_possibilities = (ordering, '-{}'.format(ordering))
+                    ordering_possibilities = (ordering, f'-{ordering}')
                     filtered_ordering = tuple(co for co in current_ordering if co not in ordering_possibilities)
-                    resulting_ordering = (ordering if not reverse else '-{}'.format(ordering),) + filtered_ordering
+                    resulting_ordering = (ordering if not reverse else f'-{ordering}',) + filtered_ordering
                 query_params = self.request.GET.copy()
                 for param in self.discard_params:
                     if param in query_params:
