@@ -3,7 +3,7 @@ from django.conf import settings
 from hashids import Hashids
 
 
-class ModelHashIdMixin(object):
+class ModelHashIdMixin:
     """ Easy hashids for Django models.
 
     To use in your model, inherit it from this class, in addition to models.Model

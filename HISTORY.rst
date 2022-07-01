@@ -13,6 +13,7 @@ History
 * Replace `django.conf.urls.url()` with `django.urls.path()`
 * Remove obsolete encoding magic comment
 * Remove obsolete unicode string prefix
+* Remove obsolete inheritance from `object`
 
 0.7.7 (2020-05-20)
 ------------------
