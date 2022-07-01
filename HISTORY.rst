@@ -11,6 +11,7 @@ History
 * Fix deprecation warning for `Signal.providing_args`
 * Remove deprecated `YuglifyCssFilter` and `YuglifyJsFilter` compression filters
 * Replace `django.conf.urls.url()` with `django.urls.path()`
+* Remove obsolete encoding magic comment
 
 0.7.7 (2020-05-20)
 ------------------
