@@ -5,6 +5,7 @@ History
 1.0.0 (2022-07-??)
 ------------------
 
+* Fix deprecation warning for `default_app_config`
 * Fix deprecation warning for `Signal.providing_args`
 
 0.7.7 (2020-05-20)
