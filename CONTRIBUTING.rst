@@ -64,33 +64,31 @@ Ready to contribute? Here's how to set up `tg-utils` for local development.
 
     $ git clone git@github.com:your_name_here/tg-utils.git
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+3. [Install poetry](https://python-poetry.org/docs/#installation)
 
-    $ mkvirtualenv tg-utils
-    $ cd tg-utils/
-    $ python setup.py develop
+4. Install dependencies::
 
-4. Create a branch for local development::
+    $ poetry install
+
+5. Create a branch for local development::
 
     $ git checkout -b name-of-your-bugfix-or-feature
 
-   Now you can make your changes locally.
+Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
+6. When you're done making changes, check that your changes pass linters and the tests, including testing other Python versions with tox::
 
-    $ flake8 tg_utils tests
-    $ python setup.py test
-    $ tox
+    $ poetry run make lint
+    $ poetry run make test
+    $ poetry run make test-all
 
-   To get flake8 and tox, just pip install them into your virtualenv.
+7. Commit your changes and push your branch to GitHub::
 
-6. Commit your changes and push your branch to GitHub::
+    git add .
+    git commit -m "Your detailed description of your changes."
+    git push origin name-of-your-bugfix-or-feature
 
-    $ git add .
-    $ git commit -m "Your detailed description of your changes."
-    $ git push origin name-of-your-bugfix-or-feature
-
-7. Submit a pull request through the GitHub website.
+8. Submit a pull request through the GitHub website.
 
 Pull Request Guidelines
 -----------------------
@@ -100,14 +98,34 @@ Before you submit a pull request, check that it meets these guidelines:
 1. The pull request should include tests.
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
-   feature to the list in README.rst.
-3. The pull request should work for Python 3.4, 3.5, 3.6 and 3.7 and for PyPy. Check
-   https://travis-ci.org/thorgate/tg-utils/pull_requests
-   and make sure that the tests pass for all supported Python versions.
+   feature to the list in README.rst. You should also update the documentation
+   source files via::
+
+    poetry run make docs
+
+3. If the pull request modifies/adds translations don't forget to run::
+
+    poetry run make update-messages
+
+4. The pull request should work for Python 3.7, 3.8, 3.9 and 3.10. Check
+   https://github.com/thorgate/tg-utils/actions and make sure that the tests
+   pass for all supported Python versions.
 
 Tips
 ----
 
+Run full test suite via tox (all python and django version combinations)::
+
+    poetry run make test-all
+
 To run a subset of tests::
 
-    $ python -m unittest tests.test_tg_utils
+    poetry run pytest tests.test_tg_utils
+
+Update documentation source files and generate it::
+
+    poetry run make docs
+
+To see all make commands::
+
+    poetry run make help

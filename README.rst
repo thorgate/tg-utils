@@ -5,8 +5,8 @@ tg-utils
 .. image:: https://img.shields.io/pypi/v/tg-utils.svg
         :target: https://pypi.python.org/pypi/tg-utils
 
-.. image:: https://travis-ci.org/thorgate/tg-utils.svg?branch=master
-        :target: https://travis-ci.org/thorgate/tg-utils
+.. image:: https://github.com/thorgate/tg-react/actions/workflows/python-package.yml/badge.svg?branch=master
+        :target: https://github.com/thorgate/tg-utils/actions
 
 .. image:: https://readthedocs.org/projects/tg-utils/badge/?version=latest
         :target: https://readthedocs.org/projects/tg-utils/?badge=latest

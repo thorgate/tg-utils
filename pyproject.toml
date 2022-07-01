@@ -1,0 +1,97 @@
+[tool.poetry]
+name = "tg-utils"
+version = "0.7.7"
+description = "Common utils for Django-based projects."
+authors = ["Thorgate <code@thorgate.eu>"]
+license = "ISCL"
+homepage = "https://github.com/thorgate/tg-utils"
+repository = "https://github.com/thorgate/tg-utils"
+readme = "README.rst"
+packages = [
+    { include = "tg_utils" },
+]
+include = [
+    "tg_utils/**/*.html",
+]
+keywords = ["tg-utils", "thorgate"]
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Framework :: Django',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: ISC License (ISCL)',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+]
+
+[tool.poetry.dependencies]
+django = ">=2.2"
+
+python = ">=3.7,<4"
+
+django-health-check = { version = "*", optional = true }
+hashids = { version = "*", optional = true }
+psutil = { version = "*", optional = true }
+python-redis-lock = { version = "*", optional = true }
+redis = { version = "*", optional = true }
+requests = { version = "*", optional = true }
+
+[tool.poetry.dev-dependencies]
+pytest = "==7.*"
+coverage = "*"
+coveralls = "*"
+pytest-cov = "*"
+pytest-django = "*"
+pytest-xdist = "*"
+black = "==22.3.0"
+prospector = "*"
+sphinx = "==3.*"
+tox = "*"
+tox-poetry = "*"
+tox-gh-actions = "*"
+
+django-compressor = "*"
+hashids = "*"
+python-redis-lock = "*"
+
+[tool.poetry.extras]
+health_check = ["django-health-check", "psutil", "requests"]
+lock = ["python-redis-lock", "redis"]
+model-hash = ["hashids"]
+
+[build-system]
+requires = ["poetry-core>=1.1.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+max-line-length = 140
+require-code = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.django_settings"
+django_find_project = "false"
+python_files = "tests/*.py tests/**/*.py"
+norecursedirs = "venv* dist* htmlcov* example* .tox*"
+addopts = "--capture=no -n auto"
+
+[tool.black]
+line-length = 88
+include = '\.pyi?$'
+exclude = '''
+
+(
+  \.eggs         # exclude a few common directories in the
+| \.git          # root of the project
+| \.mypy_cache
+| \.tox
+| \.venv
+| _build
+| build
+| dist
+| docs
+)
+'''

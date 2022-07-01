@@ -5,6 +5,12 @@ History
 1.0.0 (2022-07-??)
 ------------------
 
+* Drop support for Django < 2.2
+* Drop support for Python < 3.7
+* Add support for Django 3.1, 3.2, and 4.0
+* Add support for Python 3.8, 3.9, and 3.10
+* Replace Travis CI with GitHub Actions
+* Replace Setuptools with Poetry
 * Remove support for universal wheels
 * Fix deprecation warning for `ugettext_lazy()`
 * Fix deprecation warning for `default_app_config`
