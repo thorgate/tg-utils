@@ -8,6 +8,7 @@ History
 * Fix deprecation warning for `ugettext_lazy()`
 * Fix deprecation warning for `default_app_config`
 * Fix deprecation warning for `Signal.providing_args`
+* Remove deprecated `YuglifyCssFilter` and `YuglifyJsFilter` compression filters
 
 0.7.7 (2020-05-20)
 ------------------
