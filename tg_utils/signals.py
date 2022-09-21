@@ -1,4 +1,4 @@
 from django.dispatch import Signal
 
 
-post_modify = Signal(providing_args=[])
+post_modify = Signal()

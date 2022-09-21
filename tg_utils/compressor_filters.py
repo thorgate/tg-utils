@@ -1,18 +1,6 @@
 from compressor.filters import CompilerFilter
 
 
-class YuglifyCssFilter(CompilerFilter):
-    """ Deprecated - use CleanCssFilter instead
-    """
-    command = "yuglify --terminal --type css"
-
-
-class YuglifyJsFilter(CompilerFilter):
-    """ Deprecated - use UglifyFilter instead
-    """
-    command = "yuglify --terminal --type js"
-
-
 class UglifyFilter(CompilerFilter):
     """ Compress JavaScript with UglifyJS 2
 

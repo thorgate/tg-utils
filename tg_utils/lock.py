@@ -76,7 +76,7 @@ def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, p
         if resource is None:
             resource = f.__name__
 
-        resource = '%s:%s' % (prefix, resource)
+        resource = f'{prefix}:{resource}'
 
         @wraps(f)
         def wrapper(*args, **kwargs):
@@ -87,7 +87,7 @@ def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, p
 
             # The context manager is annoying and always blocking...
             lock = get_lock(
-                resource='%s:%s' % (resource, lock_suffix) if lock_suffix else resource,
+                resource=f'{resource}:{lock_suffix}' if lock_suffix else resource,
                 expires=expires,
             )
             lock_acquired = False

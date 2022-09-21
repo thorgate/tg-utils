@@ -2,6 +2,26 @@
 History
 =======
 
+1.0.0 (2022-07-??)
+------------------
+
+* Drop support for Django < 2.2
+* Drop support for Python < 3.7
+* Add support for Django 3.1, 3.2, and 4.0
+* Add support for Python 3.8, 3.9, and 3.10
+* Replace Travis CI with GitHub Actions
+* Replace Setuptools with Poetry
+* Remove support for universal wheels
+* Fix deprecation warning for `ugettext_lazy()`
+* Fix deprecation warning for `default_app_config`
+* Fix deprecation warning for `Signal.providing_args`
+* Remove deprecated `YuglifyCssFilter` and `YuglifyJsFilter` compression filters
+* Replace `django.conf.urls.url()` with `django.urls.path()`
+* Remove obsolete encoding magic comment
+* Remove obsolete unicode string prefix
+* Remove obsolete inheritance from `object`
+* Make use of f-strings in place of `str.format()` and `%`-formatting
+
 0.7.7 (2020-05-20)
 ------------------
 
