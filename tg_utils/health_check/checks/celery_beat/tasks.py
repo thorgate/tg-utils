@@ -1,7 +1,7 @@
 from django.core.cache import cache
 from django.utils.datetime_safe import datetime
 
-from celery import shared_task
+from celery import shared_task  # pylint: disable=import-error
 from tg_utils.health_check.checks.celery_beat.backends import CACHE_KEY
 
 

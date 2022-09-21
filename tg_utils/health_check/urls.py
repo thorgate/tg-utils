@@ -4,6 +4,8 @@ from tg_utils.health_check.views import HealthCheckViewProtected, HealthCheckVie
 
 
 urlpatterns = [
-    path('health/detail/', HealthCheckViewProtected.as_view(), name='health-check-detail'),
-    path('health/', HealthCheckViewMinimal.as_view(), name='health-check'),
+    path(
+        "health/detail/", HealthCheckViewProtected.as_view(), name="health-check-detail"
+    ),
+    path("health/", HealthCheckViewMinimal.as_view(), name="health-check"),
 ]

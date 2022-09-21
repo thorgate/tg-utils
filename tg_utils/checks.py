@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.checks import Warning
+from django.core.checks import Warning as WarningMessage
 
 
 def check_production_settings(app_configs, **kwargs):
@@ -8,19 +8,19 @@ def check_production_settings(app_configs, **kwargs):
     if settings.DEBUG:
         return issues
 
-    if not settings.EMAIL_HOST_PASSWORD or 'TODO' in settings.EMAIL_HOST_PASSWORD:
+    if not settings.EMAIL_HOST_PASSWORD or "TODO" in settings.EMAIL_HOST_PASSWORD:
         issues.append(
-            Warning(
+            WarningMessage(
                 "EMAIL_HOST_PASSWORD setting is not set to proper value",
-                id='tg_utils.W001',
+                id="tg_utils.W001",
             )
         )
 
-    if 'TODO' in settings.SITE_URL:
+    if "TODO" in settings.SITE_URL:
         issues.append(
-            Warning(
+            WarningMessage(
                 "SITE_URL setting is not set to proper value",
-                id='tg_utils.W002',
+                id="tg_utils.W002",
             )
         )
 
@@ -30,15 +30,15 @@ def check_production_settings(app_configs, **kwargs):
 def check_sentry_config(app_configs, **kwargs):
     issues = []
 
-    if 'sentry' not in settings.LOGGING['handlers']:
+    if "sentry" not in settings.LOGGING["handlers"]:
         return issues
 
-    if 'sentry' not in settings.LOGGING['loggers']['']['handlers']:
+    if "sentry" not in settings.LOGGING["loggers"][""]["handlers"]:
         issues.append(
-            Warning(
+            WarningMessage(
                 "Sentry logging handler is present but unused",
                 hint="Ensure that sentry handler is part of LOGGING['loggers']['']['handlers']",
-                id='tg_utils.W011',
+                id="tg_utils.W011",
             )
         )
 

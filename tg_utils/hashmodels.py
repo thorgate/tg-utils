@@ -4,7 +4,7 @@ from hashids import Hashids
 
 
 class ModelHashIdMixin:
-    """ Easy hashids for Django models.
+    """Easy hashids for Django models.
 
     To use in your model, inherit it from this class, in addition to models.Model
     Then user obj.hashid property or cls.pk_from_hashid() function
@@ -17,8 +17,8 @@ class ModelHashIdMixin:
         return Hashids(salt=salt, min_length=12)
 
     @classmethod
-    def pk_from_hashid(cls, hash):
-        return cls.get_hashids_object().decode(hash)[0]
+    def pk_from_hashid(cls, hashid):
+        return cls.get_hashids_object().decode(hashid)[0]
 
     @property
     def hashid(self):

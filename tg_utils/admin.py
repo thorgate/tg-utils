@@ -6,11 +6,13 @@ from django.forms.models import BaseInlineFormSet
 
 # Select correct has_add_permission signature based on Django version
 if django.VERSION >= (2, 1):
+
     class ReadOnlyAddAdminMixin:
         def has_add_permission(self, request, obj):
             return False
 
 else:
+
     class ReadOnlyAddAdminMixin:
         def has_add_permission(self, request):
             return False
@@ -23,14 +25,19 @@ class AutoMediaFormSet(BaseInlineFormSet):
 
 
 class StaticModelAdmin(ReadOnlyAddAdminMixin, InlineModelAdmin):
-    """ Displays inline models as read-only.
-    """
+    """Displays inline models as read-only."""
 
     extra = 0
     max_num = 0
     formset = AutoMediaFormSet
 
-    exclude = ('created_by', 'created_at', 'closed_by', 'closed_at', 'updated_at', )
+    exclude = (
+        "created_by",
+        "created_at",
+        "closed_by",
+        "closed_at",
+        "updated_at",
+    )
 
     def has_delete_permission(self, request, obj=None):
         return False
@@ -42,8 +49,8 @@ class StaticModelAdmin(ReadOnlyAddAdminMixin, InlineModelAdmin):
 
 
 class StaticStackedInlineModelAdmin(StaticModelAdmin):
-    template = 'admin/edit_inline/no_obj_head/stacked.html'
+    template = "admin/edit_inline/no_obj_head/stacked.html"
 
 
 class StaticTabularInlineModelAdmin(StaticModelAdmin):
-    template = 'admin/edit_inline/no_obj_head/tabular.html'
+    template = "admin/edit_inline/no_obj_head/tabular.html"
