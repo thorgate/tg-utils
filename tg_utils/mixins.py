@@ -14,30 +14,31 @@ class OrderingOptionsMixin:
 
     Use `{{ view.ordering_query_<field_name> }}` in the template to get the corresponding parameters for a header link.
     """
-    ordering_query_param = 'order'
+
+    ordering_query_param = "order"
     ordering_options = ()
-    discard_params = ('page',)
+    discard_params = ("page",)
 
     @staticmethod
     def ordering_to_str(ordering: tuple):
-        return mark_safe(','.join(map(escape, ordering)))
+        return mark_safe(",".join(map(escape, ordering)))
 
     def get_ordering(self):
         requested_ordering = self.request.GET.get(self.ordering_query_param)
         if requested_ordering is not None:
-            requested_ordering = tuple(o for o in requested_ordering.split(','))
+            requested_ordering = tuple(o for o in requested_ordering.split(","))
             if all(map(lambda o: o in self.ordering_options, requested_ordering)):
                 return requested_ordering
         return super().get_ordering()
 
     def __getitem__(self, item):
         current_ordering = tuple(self.get_ordering())
-        if item == 'ordering_query_current':
+        if item == "ordering_query_current":
             if current_ordering is not None:
                 return self.ordering_to_str(current_ordering)
-            return ''
+            return ""
 
-        match = re.search('^ordering_query_([_a-zA-Z]+)$', item)
+        match = re.search("^ordering_query_([_a-zA-Z]+)$", item)
         if match is not None:
             ordering = match.group(1)
             if ordering in self.ordering_options:
@@ -45,14 +46,22 @@ class OrderingOptionsMixin:
                     resulting_ordering = ordering
                 else:
                     reverse = ordering == current_ordering[0]
-                    ordering_possibilities = (ordering, f'-{ordering}')
-                    filtered_ordering = tuple(co for co in current_ordering if co not in ordering_possibilities)
-                    resulting_ordering = (ordering if not reverse else f'-{ordering}',) + filtered_ordering
+                    ordering_possibilities = (ordering, f"-{ordering}")
+                    filtered_ordering = tuple(
+                        co
+                        for co in current_ordering
+                        if co not in ordering_possibilities
+                    )
+                    resulting_ordering = (
+                        ordering if not reverse else f"-{ordering}",
+                    ) + filtered_ordering
                 query_params = self.request.GET.copy()
                 for param in self.discard_params:
                     if param in query_params:
                         del query_params[param]
-                query_params[self.ordering_query_param] = self.ordering_to_str(resulting_ordering)
+                query_params[self.ordering_query_param] = self.ordering_to_str(
+                    resulting_ordering
+                )
                 return query_params.urlencode()
 
         return super()[item]
@@ -64,17 +73,17 @@ class ReadOnlyAdminMixin:
     Makes all fields read-only, removes save buttons, delete, and add permissions.
     """
 
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        """ customize add/edit form to remove save / save and continue """
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        """customize add/edit form to remove save / save and continue"""
         extra_context = extra_context or {}
-        extra_context['show_save_and_continue'] = False
-        extra_context['show_save'] = False
+        extra_context["show_save_and_continue"] = False
+        extra_context["show_save"] = False
         return super().change_view(request, object_id, extra_context=extra_context)
 
     def get_actions(self, request):
         actions = super().get_actions(request)
-        if 'delete_selected' in actions:
-            del actions['delete_selected']
+        if "delete_selected" in actions:
+            del actions["delete_selected"]
         return actions
 
     def get_readonly_fields(self, request, obj=None):

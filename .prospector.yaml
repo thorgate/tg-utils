@@ -82,5 +82,6 @@ pylint:
         - unused-argument
         - raise-missing-from
     options:
+        max-args: 8
         max-line-length: 140
-        django-settings-module: test.django_settings
+        django-settings-module: tests.django_settings

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tg-utils"
-version = "0.7.7"
+version = "1.0.0"
 description = "Common utils for Django-based projects."
 authors = ["Thorgate <code@thorgate.eu>"]
 license = "ISCL"
@@ -29,9 +29,9 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-django = ">=2.2"
+python = ">=3.7.2,<4"
 
-python = ">=3.7,<4"
+django = ">=2.2"
 
 django-health-check = { version = "*", optional = true }
 hashids = { version = "*", optional = true }
@@ -39,6 +39,7 @@ psutil = { version = "*", optional = true }
 python-redis-lock = { version = "*", optional = true }
 redis = { version = "*", optional = true }
 requests = { version = "*", optional = true }
+yappi = { version = "*", optional = true }
 
 [tool.poetry.dev-dependencies]
 pytest = "==7.*"
@@ -47,21 +48,30 @@ coveralls = "*"
 pytest-cov = "*"
 pytest-django = "*"
 pytest-xdist = "*"
-black = "==22.3.0"
-prospector = "*"
+black = "==22.8.0"
+prospector = "^1.7.0"
+# pylint 2.15 is inconsitently crashing for some reason
+# Ref: https://github.com/PyCQA/pylint-django/issues/370
+pylint = "==2.14.*"
 sphinx = "==3.*"
 tox = "*"
 tox-poetry = "*"
 tox-gh-actions = "*"
 
 django-compressor = "*"
+django-health-check = "*"
+psutil = "*"
 hashids = "*"
 python-redis-lock = "*"
+redis = "*"
+requests = "*"
+yappi = "*"
 
 [tool.poetry.extras]
 health_check = ["django-health-check", "psutil", "requests"]
 lock = ["python-redis-lock", "redis"]
 model-hash = ["hashids"]
+profiling = ["yappi"]
 
 [build-system]
 requires = ["poetry-core>=1.1.0"]
@@ -95,3 +105,10 @@ exclude = '''
 | docs
 )
 '''
+
+[tool.coverage.run]
+branch = true
+source = ["tg_utils/"]
+
+[tool.coverage.html]
+directory = "htmlcov"

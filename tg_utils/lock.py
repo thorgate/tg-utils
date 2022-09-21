@@ -13,18 +13,20 @@ import redis_lock
 from redis import StrictRedis
 
 
-REDIS_LOCK_URL = getattr(settings, 'REDIS_LOCK_URL', False)
+REDIS_LOCK_URL = getattr(settings, "REDIS_LOCK_URL", None)
 
-DEFAULT_PREFIX = getattr(settings, 'REDIS_LOCK_DEFAULT_PREFIX', 'acquires_lock')
+DEFAULT_PREFIX = getattr(settings, "REDIS_LOCK_DEFAULT_PREFIX", "acquires_lock")
 
 
-logger = logging.getLogger('tg-utils.lock')
+logger = logging.getLogger("tg-utils.lock")
 logger.setLevel(logging.DEBUG if settings.DEBUG else logging.INFO)
 
 
 def get_redis_connection():
     if not REDIS_LOCK_URL:
-        raise ImproperlyConfigured("To use locking, set REDIS_LOCK_URL in your settings.py")
+        raise ImproperlyConfigured(
+            "To use locking, set REDIS_LOCK_URL in your settings.py"
+        )
 
     return StrictRedis.from_url(REDIS_LOCK_URL)
 
@@ -37,7 +39,14 @@ def get_lock(resource, expires):
     return redis_lock.Lock(get_redis_connection(), resource, expire=expires)
 
 
-def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, prefix=DEFAULT_PREFIX, create_id=None):
+def acquires_lock(
+    expires,
+    should_fail=True,
+    should_wait=False,
+    resource=None,
+    prefix=DEFAULT_PREFIX,
+    create_id=None,
+):
     """
     Decorator to ensure function only runs when it is unique holder of the resource.
 
@@ -76,7 +85,7 @@ def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, p
         if resource is None:
             resource = f.__name__
 
-        resource = f'{prefix}:{resource}'
+        resource = f"{prefix}:{resource}"
 
         @wraps(f)
         def wrapper(*args, **kwargs):
@@ -87,7 +96,7 @@ def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, p
 
             # The context manager is annoying and always blocking...
             lock = get_lock(
-                resource=f'{resource}:{lock_suffix}' if lock_suffix else resource,
+                resource=f"{resource}:{lock_suffix}" if lock_suffix else resource,
                 expires=expires,
             )
             lock_acquired = False
@@ -98,22 +107,24 @@ def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, p
             is_blocking = should_wait
 
             should_execute_if_lock_fails = False
-            if 'should_execute_if_lock_fails' in kwargs:
-                should_execute_if_lock_fails = kwargs.pop("should_execute_if_lock_fails")
+            if "should_execute_if_lock_fails" in kwargs:
+                should_execute_if_lock_fails = kwargs.pop(
+                    "should_execute_if_lock_fails"
+                )
 
             # If decorated fn is called with should_wait kwarg
             # Override lock blocking mode
-            if 'should_wait' in kwargs:
-                is_blocking = kwargs.pop('should_wait')
+            if "should_wait" in kwargs:
+                is_blocking = kwargs.pop("should_wait")
 
                 if is_blocking:
                     logger.debug('Waiting for resource "%s"', resource)
 
             if not lock.acquire(blocking=is_blocking):
                 if should_fail:
-                    raise RuntimeError("Failed to acquire lock: %s" % resource)
+                    raise RuntimeError(f"Failed to acquire lock: {resource}")
 
-                logger.warning('Failed to acquire lock: %s', resource)
+                logger.warning("Failed to acquire lock: %s", resource)
                 if not should_execute_if_lock_fails:
                     return False
 
@@ -127,7 +138,9 @@ def acquires_lock(expires, should_fail=True, should_wait=False, resource=None, p
                     if lock_acquired:
                         lock.release()
                 except Exception as e:
-                    logger.exception('Failed to release lock: %s', str(e), exc_info=False)
+                    logger.exception(
+                        "Failed to release lock: %s", str(e), exc_info=False
+                    )
 
         return wrapper
 

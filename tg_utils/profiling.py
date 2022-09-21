@@ -9,6 +9,7 @@ profiling_results = []
 
 @contextmanager
 def profile_yappi(label):
+    # pylint: disable=import-outside-toplevel
     import yappi
 
     timestamp = datetime.now()
@@ -20,10 +21,19 @@ def profile_yappi(label):
     finally:
         _elapsed = time.time() - _start
         func_stats = yappi.get_func_stats()
-        file_prefix = '/tmp/profile-yappi-%s-%s' % (label, timestamp.isoformat('T'))
-        with open(file_prefix + '-summary.txt', 'w') as f:
-            func_stats.print_all(out=f, columns={0: ("name", 140), 1: ("ncall", 8), 2: ("tsub", 8), 3: ("ttot", 8), 4: ("tavg", 8)})
-        func_stats.save(file_prefix + '.kgrind', 'CALLGRIND')
+        file_prefix = f"/tmp/profile-yappi-{label}-{timestamp.isoformat('T')}"
+        with open(f"{file_prefix}-summary.txt", "w", encoding="utf-8") as f:
+            func_stats.print_all(
+                out=f,
+                columns={
+                    0: ("name", 140),
+                    1: ("ncall", 8),
+                    2: ("tsub", 8),
+                    3: ("ttot", 8),
+                    4: ("tavg", 8),
+                },
+            )
+        func_stats.save(file_prefix + ".kgrind", "CALLGRIND")
         yappi.stop()
         yappi.clear_stats()
         profiling_results.append((label, _elapsed))
@@ -37,11 +47,11 @@ def profile_time(label):
     finally:
         _elapsed = time.time() - _start
         profiling_results.append((label, _elapsed))
-        logging.info("%s DONE, took  %.1f ms", label, _elapsed*1000)
+        logging.info("%s DONE, took  %.1f ms", label, _elapsed * 1000)
 
 
 class ProfiledViewMixin:
-    """ Helper for profiling class-based views
+    """Helper for profiling class-based views
 
     To use it, make your view inherit from ProfiledViewMixin, then set profiling_mode attribute of your class to desired
     value. The choices are:
@@ -51,6 +61,7 @@ class ProfiledViewMixin:
       file can be read with KCachegrind. yappi must be installed separately - `pip install yappi`. KCachegrind or
       QCachegrind (on OSX) can be installed via apt or Homebrew.
     """
+
     PROFILING_OFF = 1
     PROFILING_LOGGING = 2
     PROFILING_YAPPI = 3
@@ -60,17 +71,19 @@ class ProfiledViewMixin:
     def dispatch(self, request, *args, **kwargs):
         if self.profiling_mode == self.PROFILING_LOGGING:
             return self.dispatch_logging(request, *args, **kwargs)
-        elif self.profiling_mode == self.PROFILING_YAPPI:
+        if self.profiling_mode == self.PROFILING_YAPPI:
             return self.dispatch_yappi(request, *args, **kwargs)
-        else:
-            return super().dispatch(request, *args, **kwargs)
+
+        return super().dispatch(request, *args, **kwargs)
 
     def dispatch_logging(self, request, *args, **kwargs):
         logging.info("STARTING %s request", self.__class__.__name__)
         _start = time.time()
         ret = super().dispatch(request, *args, **kwargs)
         _elapsed = time.time() - _start
-        logging.info("DONE %s request:  %.1f ms", self.__class__.__name__, _elapsed*1000)
+        logging.info(
+            "DONE %s request:  %.1f ms", self.__class__.__name__, _elapsed * 1000
+        )
 
         return ret
 

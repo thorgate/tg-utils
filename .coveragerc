@@ -1,8 +1,0 @@
-[run]
-branch = True
-source =
-    tg_utils/
-
-[html]
-directory = htmlcov
-

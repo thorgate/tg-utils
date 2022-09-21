@@ -6,26 +6,27 @@ from health_check.backends import BaseHealthCheckBackend
 from health_check.exceptions import ServiceReturnedUnexpectedResult, ServiceUnavailable
 
 
-logger = logging.getLogger('health')
+logger = logging.getLogger("health")
 
 
 class HealthCheckSettingsMixin:
     """Mixin that makes settings.HEALTH_CHECK available as property, and supplies empty dict instead if the setting
-     is not defined"""
+    is not defined"""
+
     @property
     def settings(self):
-        return getattr(settings, 'HEALTH_CHECK', {})
+        return getattr(settings, "HEALTH_CHECK", {})
 
     @property
     def requests_timeout(self):
-        return self.settings.get('REQUESTS_TIMEOUT', 5)
+        return self.settings.get("REQUESTS_TIMEOUT", 5)
 
 
 class HTTPBasedHealthCheck(BaseHealthCheckBackend, HealthCheckSettingsMixin):
     """Helper class for any health check that check status of HTTP based service"""
 
     expected_status_code = 200
-    method = 'GET'
+    method = "GET"
     url = None
     payload = None
 
@@ -51,7 +52,8 @@ class HTTPBasedHealthCheck(BaseHealthCheckBackend, HealthCheckSettingsMixin):
             self.add_error(ServiceUnavailable(f"{self.url} - {e.__class__.__name__}"))
         else:
             if response.status_code != self.expected_status_code:
-                self.add_error(ServiceReturnedUnexpectedResult("Expected {expected}, got {actual}".format(
-                    expected=self.expected_status_code,
-                    actual=response.status_code,
-                )))
+                self.add_error(
+                    ServiceReturnedUnexpectedResult(
+                        f"Expected {self.expected_status_code}, got {response.status_code}"
+                    )
+                )

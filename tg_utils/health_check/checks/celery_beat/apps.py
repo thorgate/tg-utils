@@ -10,12 +10,13 @@ from tg_utils.health_check.checks.celery_beat.tasks import timestamp_task
 
 
 class HealthCheckConfig(AppConfig):
-    name = 'tg_utils.health_check.checks.celery_beat'
+    name = "tg_utils.health_check.checks.celery_beat"
 
     def ready(self):
+        # pylint: disable=import-outside-toplevel
         from .backends import CeleryBeatHealthCheck
 
-        cls = getattr(settings, 'HEALTH_CHECK', {}).get('CELERY_APP', None)
+        cls = getattr(settings, "HEALTH_CHECK", {}).get("CELERY_APP", None)
         if cls is None:
             raise ImproperlyConfigured(
                 "Set HEALTH_CHECK['CELERY_APP'] to point to celery app instance in your settings to use celery "
@@ -31,7 +32,9 @@ class HealthCheckConfig(AppConfig):
             timestamp_task()
 
             getattr(app_module, class_name).add_periodic_task(
-                TIMEOUT, timestamp_task.s(), name='Celery health check beat',
+                TIMEOUT,
+                timestamp_task.s(),
+                name="Celery health check beat",
             )
         except Exception:
             # This is likely issue with the cache or with celery broker connection. Handle any exception not to let the

@@ -22,11 +22,18 @@ clean-pyc:
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
 
-lint:
-	prospector
-
 black:
-	black tg_utils
+	@black tg_utils $(cmd)
+
+fmt: black
+
+prospector:
+	@prospector $(cmd)
+
+black-check:
+	@make black cmd="--check --diff"
+
+lint: black-check prospector
 
 test:
 	pytest
@@ -34,10 +41,8 @@ test:
 test-all:
 	tox
 
-test-full: test lint coverage
-
 coverage:
-	pytest --cov-config .coveragerc --cov=tg_utils --cov-report html --cov-report term-missing
+	pytest --cov=tg_utils --cov-report xml --cov-report html --cov-report term-missing
 
 docs:
 	mkdir -p docs/_static
