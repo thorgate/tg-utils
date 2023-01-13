@@ -1,5 +1,6 @@
 import re
 
+from django.contrib.admin import helpers
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 
@@ -96,3 +97,27 @@ class ReadOnlyAdminMixin:
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+class ExtendedActionsMixin:
+    """
+    Mixin to allow for admin actions that do not require selected model instances.
+
+    This mixin must extend ModelAdmin.
+    """
+
+    # actions that can be executed with no items selected on the admin change list.
+    # The filtered queryset displayed to the user will be used instead
+    extended_actions = []
+
+    def changelist_view(self, request, extra_context=None):
+        # if a extended action is called and there's no checkbox selected, select one with
+        # invalid id, to get an empty queryset
+        if "action" in request.POST and request.POST["action"] in self.extended_actions:
+            if not request.POST.getlist(helpers.ACTION_CHECKBOX_NAME):
+                post = request.POST.copy()
+                post.update({helpers.ACTION_CHECKBOX_NAME: 0})
+                # pylint:disable=protected-access
+                request._set_post(post)
+
+        return super().changelist_view(request, extra_context)
