@@ -26,6 +26,10 @@ class HealthCheckConfig(AppConfig):
         module_name, class_name = cls.rsplit(".", 1)
         app_module = importlib.import_module(module_name)
 
+        signature_extra_kwargs = getattr(settings, "HEALTH_CHECK", {}).get(
+            "CELERY_BEAT_SIGNATURE_EXTRA_KWARGS", {}
+        )
+
         # Set initial timestamp not to fail the health-check before it runs for the first time
         # Don't use apply_async - otherwise, the whole initialisation will fail if celery fails
         try:
@@ -33,7 +37,7 @@ class HealthCheckConfig(AppConfig):
 
             getattr(app_module, class_name).add_periodic_task(
                 TIMEOUT,
-                timestamp_task.s(),
+                timestamp_task.signature((), **signature_extra_kwargs),
                 name="Celery health check beat",
             )
         except Exception:

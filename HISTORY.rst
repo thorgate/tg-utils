@@ -2,6 +2,12 @@
 History
 =======
 
+1.0.1 (2023-01-13)
+------------------
+
+* Add mixin for custom django admin actions not requiring queryset
+* Add support for customizing CeleryBeat health-check task signature
+
 1.0.0 (2022-09-21)
 ------------------
 
