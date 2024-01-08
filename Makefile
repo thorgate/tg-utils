@@ -41,6 +41,8 @@ test:
 test-all:
 	tox
 
+test-full: lint coverage
+
 coverage:
 	pytest --cov=tg_utils --cov-report xml --cov-report html --cov-report term-missing
 
