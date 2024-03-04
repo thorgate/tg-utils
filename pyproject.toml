@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tg-utils"
-version = "1.0.1"
+version = "1.0.2"
 description = "Common utils for Django-based projects."
 authors = ["Thorgate <code@thorgate.eu>"]
 license = "ISCL"
@@ -55,7 +55,6 @@ prospector = "^1.7.0"
 pylint = "==2.14.*"
 sphinx = "==3.*"
 tox = "*"
-tox-poetry = "*"
 tox-gh-actions = "*"
 
 django-compressor = "*"
