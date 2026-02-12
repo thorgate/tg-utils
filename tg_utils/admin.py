@@ -3,7 +3,6 @@ import django
 from django.contrib.admin.options import InlineModelAdmin
 from django.forms.models import BaseInlineFormSet
 
-
 # Select correct has_add_permission signature based on Django version
 if django.VERSION >= (2, 1):
 

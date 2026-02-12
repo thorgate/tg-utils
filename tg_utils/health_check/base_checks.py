@@ -5,7 +5,6 @@ from django.conf import settings
 from health_check.backends import BaseHealthCheckBackend
 from health_check.exceptions import ServiceReturnedUnexpectedResult, ServiceUnavailable
 
-
 logger = logging.getLogger("health")
 
 

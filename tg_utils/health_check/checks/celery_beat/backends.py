@@ -6,7 +6,6 @@ from health_check.backends import BaseHealthCheckBackend
 from health_check.exceptions import ServiceUnavailable
 from tg_utils.health_check.base_checks import HealthCheckSettingsMixin
 
-
 CACHE_KEY = "CELERY_BEAT_HEALTH_CHECK_TIME_STAMP"
 TIMEOUT = getattr(settings, "HEALTH_CHECK", {}).get("CELERY_BEAT_CHECK_INTERVAL", 60)
 DELAY_THRESHOLD = getattr(settings, "HEALTH_CHECK", {}).get(

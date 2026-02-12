@@ -12,7 +12,6 @@ from django.core.exceptions import ImproperlyConfigured
 import redis_lock
 from redis import StrictRedis
 
-
 REDIS_LOCK_URL = getattr(settings, "REDIS_LOCK_URL", None)
 
 DEFAULT_PREFIX = getattr(settings, "REDIS_LOCK_DEFAULT_PREFIX", "acquires_lock")
