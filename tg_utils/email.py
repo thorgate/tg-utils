@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 logger = logging.getLogger("tg_utils.email")
 
 
+# pylint: disable-next=too-many-positional-arguments
 def send_email(
     rcpt_email, email_subject, template_name, template_vars, from_email=None, html=True
 ):

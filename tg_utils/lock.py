@@ -38,6 +38,7 @@ def get_lock(resource, expires):
     return redis_lock.Lock(get_redis_connection(), resource, expire=expires)
 
 
+# pylint: disable-next=too-many-positional-arguments
 def acquires_lock(
     expires,
     should_fail=True,
@@ -102,7 +103,7 @@ def acquires_lock(
 
             # Get default lock blocking mode
             # Copying to local variable so original variable would not be touched
-            nonlocal should_wait
+            nonlocal should_wait  # noqa: F999
             is_blocking = should_wait
 
             should_execute_if_lock_fails = False
