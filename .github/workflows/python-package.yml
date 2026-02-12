@@ -12,7 +12,6 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version:
@@ -22,7 +21,9 @@ jobs:
           - "3.10"
           - "3.11"
           - "3.12"
-
+          - "3.13"
+          - "3.14"
+    runs-on: "${{ matrix.python-version == '3.7' && 'ubuntu-22.04' || 'ubuntu-latest' }}"
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -36,7 +37,7 @@ jobs:
         python -m pip install --upgrade pip setuptools
         poetry install
 
-    - if: ${{ matrix.python-version == '3.11' }}
+    - if: ${{ matrix.python-version == '3.14' }}
       name: Lint
       run: |
         poetry run make lint
@@ -45,7 +46,12 @@ jobs:
       run: |
         poetry run make test-all
 
-    - if: ${{ matrix.python-version == '3.11' }}
+    - if: ${{ matrix.python-version == '3.14' }}
+      name: Create coverage report
+      run: |
+        poetry run make coverage
+
+    - if: ${{ matrix.python-version == '3.14' }}
       name: Code Coverage Summary Report
       uses: irongut/CodeCoverageSummary@v1.0.2
       with:
