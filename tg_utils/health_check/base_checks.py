@@ -2,7 +2,12 @@ import logging
 
 import requests
 from django.conf import settings
-from health_check.backends import BaseHealthCheckBackend
+
+try:
+    from health_check.backends import HealthCheck
+except ImportError:
+    from health_check.backends import BaseHealthCheckBackend as HealthCheck
+
 from health_check.exceptions import ServiceReturnedUnexpectedResult, ServiceUnavailable
 
 logger = logging.getLogger("health")
@@ -21,7 +26,7 @@ class HealthCheckSettingsMixin:
         return self.settings.get("REQUESTS_TIMEOUT", 5)
 
 
-class HTTPBasedHealthCheck(BaseHealthCheckBackend, HealthCheckSettingsMixin):
+class HTTPBasedHealthCheck(HealthCheck, HealthCheckSettingsMixin):
     """Helper class for any health check that check status of HTTP based service"""
 
     expected_status_code = 200

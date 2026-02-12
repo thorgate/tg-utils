@@ -2,6 +2,12 @@
 History
 =======
 
+1.0.3 (2026-02-12)
+------------------
+
+* Add support for django 5.1 and django 5.2
+* Fix support for django-health-check
+
 1.0.2 (2024-01-08)
 
 * Add support for django 5

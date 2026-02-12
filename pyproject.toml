@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tg-utils"
-version = "1.0.2"
+version = "1.0.3"
 description = "Common utils for Django-based projects."
 authors = ["Thorgate <code@thorgate.eu>"]
 license = "ISCL"
@@ -41,7 +41,7 @@ redis = { version = "*", optional = true }
 requests = { version = "*", optional = true }
 yappi = { version = "*", optional = true }
 
-[poetry.group.dev.dependencies]
+[tool.poetry.dev-dependencies]
 pytest = "==7.*"
 coverage = "*"
 coveralls = "*"
