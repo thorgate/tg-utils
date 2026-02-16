@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tg-utils"
-version = "1.0.2"
+version = "1.0.3"
 description = "Common utils for Django-based projects."
 authors = ["Thorgate <code@thorgate.eu>"]
 license = "ISCL"
@@ -33,7 +33,7 @@ python = ">=3.7.2,<4"
 
 django = ">=2.2"
 
-django-health-check = { version = "*", optional = true }
+django-health-check = { version = "<4", optional = true }
 hashids = { version = "*", optional = true }
 psutil = { version = "*", optional = true }
 python-redis-lock = { version = "*", optional = true }
@@ -48,17 +48,15 @@ coveralls = "*"
 pytest-cov = "*"
 pytest-django = "*"
 pytest-xdist = "*"
-black = "==22.8.0"
-prospector = "^1.7.0"
-# pylint 2.15 is inconsitently crashing for some reason
-# Ref: https://github.com/PyCQA/pylint-django/issues/370
-pylint = "==2.14.*"
+black = "*"
+prospector = "*"
+pylint = "*"
 sphinx = "==3.*"
 tox = "*"
 tox-gh-actions = "*"
 
 django-compressor = "*"
-django-health-check = "*"
+django-health-check = "<4"
 psutil = "*"
 hashids = "*"
 python-redis-lock = "*"

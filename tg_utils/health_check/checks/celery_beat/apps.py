@@ -32,22 +32,23 @@ class HealthCheckConfig(AppConfig):
 
         # Set initial timestamp not to fail the health-check before it runs for the first time
         # Don't use apply_async - otherwise, the whole initialisation will fail if celery fails
-        try:
-            timestamp_task()
+        if timestamp_task is not None:
+            try:
+                timestamp_task()
 
-            getattr(app_module, class_name).add_periodic_task(
-                TIMEOUT,
-                timestamp_task.signature((), **signature_extra_kwargs),
-                name="Celery health check beat",
-            )
-        except Exception:
-            # This is likely issue with the cache or with celery broker connection. Handle any exception not to let the
-            # whole app go down - depending on cache and broker backend, different exceptions can be encountered here
-            #
-            # Don't try to recover from this error, health-check will be failing unless the issue is resolved.
-            #
-            # Don't log the exception since sometimes it is expected to fail here - i.e. when running some management
-            # command that does not expect all the infrastructure to work
-            pass
+                getattr(app_module, class_name).add_periodic_task(
+                    TIMEOUT,
+                    timestamp_task.signature((), **signature_extra_kwargs),
+                    name="Celery health check beat",
+                )
+            except Exception:
+                # This is likely issue with the cache or with celery broker connection. Handle any exception not to let the
+                # whole app go down - depending on cache and broker backend, different exceptions can be encountered here
+                #
+                # Don't try to recover from this error, health-check will be failing unless the issue is resolved.
+                #
+                # Don't log the exception since sometimes it is expected to fail here - i.e. when running some management
+                # command that does not expect all the infrastructure to work
+                pass
 
         plugin_dir.register(CeleryBeatHealthCheck)

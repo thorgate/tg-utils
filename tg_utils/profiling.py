@@ -3,7 +3,6 @@ from datetime import datetime
 import logging
 import time
 
-
 profiling_results = []
 
 

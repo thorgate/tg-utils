@@ -20,3 +20,6 @@ def test_imports():
     from tg_utils import signals
     from tg_utils import uuid
     from tg_utils import decorators
+    from tg_utils.health_check.checks.celery_beat import apps
+    from tg_utils.health_check.checks.elvis import apps
+    from tg_utils.health_check.checks.phantomjs import apps

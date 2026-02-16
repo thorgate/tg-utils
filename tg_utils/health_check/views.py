@@ -4,7 +4,6 @@ from django.conf import settings
 from django.http import JsonResponse, HttpResponseNotFound, HttpResponseForbidden
 from health_check.views import MainView
 
-
 logger = logging.getLogger("health")
 
 
